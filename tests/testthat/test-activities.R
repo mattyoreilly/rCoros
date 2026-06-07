@@ -1,4 +1,5 @@
 test_that("coros_activities returns a tibble with expected columns", {
+  skip_on_old_curl()
   mock_resp <- httr2::response_json(
     body = list(
       result = "0000",
@@ -44,6 +45,7 @@ test_that("coros_activities returns a tibble with expected columns", {
 })
 
 test_that("coros_activities handles missing optional fields gracefully", {
+  skip_on_old_curl()
   mock_resp <- httr2::response_json(
     body = list(
       result = "0000",
@@ -64,6 +66,7 @@ test_that("coros_activities handles missing optional fields gracefully", {
 })
 
 test_that("coros_activities stops on API error", {
+  skip_on_old_curl()
   mock_resp <- httr2::response_json(
     body = list(result = "1001", message = "Session expired")
   )

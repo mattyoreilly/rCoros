@@ -59,6 +59,7 @@ test_that("coros_workouts returns workouts and steps tibbles", {
 })
 
 test_that("coros_schedule returns a tibble of planned items", {
+  skip_on_old_curl()
   mock_resp <- httr2::response_json(
     body = list(
       result = "0000",
@@ -102,6 +103,7 @@ test_that("coros_schedule returns a tibble of planned items", {
 })
 
 test_that("coros_schedule returns zero-row tibble when no entities", {
+  skip_on_old_curl()
   mock_resp <- httr2::response_json(
     body = list(result = "0000", data = list(entities = list()))
   )
