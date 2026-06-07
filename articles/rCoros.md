@@ -1,0 +1,205 @@
+# Getting started with rCoros
+
+rCoros gives you tidy access to your [COROS Training
+Hub](https://trainhub.coros.com) data from R. Every function returns a
+tibble, so you can pipe results straight into dplyr and ggplot2.
+
+## Setup
+
+Store your credentials in `~/.Renviron` so they are never hard-coded in
+a script:
+
+    COROS_EMAIL=you@example.com
+    COROS_PASSWORD=secret
+
+Then restart R and authenticate:
+
+``` r
+
+library(rCoros)
+
+auth <- coros_login()
+auth
+#> <coros_auth>
+#>   region:    us
+#>   user_id:   123456789
+#>   logged in: 2026-06-07 08:00:00
+```
+
+Pass `region = "eu"` if your account was created in Europe. The `auth`
+object is just a lightweight list — create it once per session and pass
+it to every subsequent call.
+
+## Activities
+
+[`coros_activities()`](https://mattyoreilly.github.io/rCoros/reference/coros_activities.md)
+returns one row per activity. By default it fetches the last 30 days and
+auto-paginates until all matching activities are returned:
+
+``` r
+
+library(dplyr)
+
+acts <- coros_activities(auth)
+acts
+#> # A tibble: 47 × 16
+#>   activity_id name            sport_type sport_name date       start_time
+#>   <chr>       <chr>                <int> <chr>      <date>     <dttm>
+#> 1 4780…       Morning Trail R…       102 Trail Run… 2026-06-06 2026-06-06 06:12:00
+#> 2 4779…       Easy Run               100 Running    2026-06-04 2026-06-04 07:00:00
+#> …
+```
+
+Filter to runs only, then look at distance and training load over time:
+
+``` r
+
+runs <- acts |>
+  filter(sport_type %in% c(100L, 102L)) |>
+  arrange(date)
+
+library(ggplot2)
+
+ggplot(runs, aes(date, distance_km)) +
+  geom_col(fill = "#3A7BD5") +
+  labs(title = "Weekly volume", x = NULL, y = "Distance (km)")
+```
+
+### Activity detail
+
+Drill into a single activity to get lap splits and heart-rate zones:
+
+``` r
+
+detail <- coros_activity_detail(
+  auth,
+  activity_id = acts$activity_id[[1]],
+  sport_type  = acts$sport_type[[1]]
+)
+
+# One-row summary
+detail$summary |> glimpse()
+
+# Lap splits
+detail$laps
+
+# Time in HR zones
+ggplot(detail$hr_zones, aes(factor(zone), minutes, fill = factor(zone))) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_brewer(palette = "RdYlGn", direction = -1) +
+  labs(title = "Time in HR zones", x = "Zone", y = "Minutes")
+```
+
+## Daily wellness metrics
+
+[`coros_daily_metrics()`](https://mattyoreilly.github.io/rCoros/reference/coros_daily_metrics.md)
+pulls per-day HRV, resting heart rate, VO2max, training load, and more
+for up to 90 days at a time:
+
+``` r
+
+metrics <- coros_daily_metrics(auth, start_day = "20260101", end_day = "20260607")
+
+# HRV trend with baseline
+ggplot(metrics, aes(date)) +
+  geom_ribbon(aes(ymin = hrv_baseline - 5, ymax = hrv_baseline + 5),
+              fill = "steelblue", alpha = 0.2) +
+  geom_line(aes(y = hrv_baseline), colour = "steelblue", linewidth = 0.8) +
+  geom_point(aes(y = hrv), size = 1.5) +
+  labs(title = "Overnight HRV vs. baseline", x = NULL, y = "HRV (ms)")
+```
+
+For a quick view of just the last 7 days,
+[`coros_hrv()`](https://mattyoreilly.github.io/rCoros/reference/coros_hrv.md)
+hits a lighter dashboard endpoint:
+
+``` r
+
+coros_hrv(auth)
+#> # A tibble: 7 × 4
+#>   date         hrv baseline hrv_sd
+#>   <date>     <dbl>    <dbl>  <dbl>
+#> 1 2026-06-01  61.2     58.4    4.1
+#> 2 2026-06-02  64.8     58.8    3.9
+#> …
+```
+
+## Training load
+
+Training load and its acute:chronic ratio are in
+[`coros_daily_metrics()`](https://mattyoreilly.github.io/rCoros/reference/coros_daily_metrics.md).
+A ratio above ~1.5 is a useful proxy for injury risk:
+
+``` r
+
+metrics |>
+  filter(!is.na(load_ratio)) |>
+  ggplot(aes(date, load_ratio)) +
+  geom_hline(yintercept = c(0.8, 1.3), linetype = "dashed", colour = "grey60") +
+  geom_line(colour = "#E06C2C", linewidth = 1) +
+  annotate("text", x = min(metrics$date), y = 1.35,
+           label = "Caution zone", hjust = 0, size = 3, colour = "grey40") +
+  labs(title = "Acute:chronic training load ratio",
+       x = NULL, y = "Load ratio")
+```
+
+## Workout programmes
+
+[`coros_workouts()`](https://mattyoreilly.github.io/rCoros/reference/coros_workouts.md)
+returns your saved workout library as two linked tibbles — the workout
+header and its individual steps:
+
+``` r
+
+w <- coros_workouts(auth)
+
+# All workouts
+w$workouts
+
+# Steps for a specific workout
+w$steps |>
+  filter(workout_id == w$workouts$id[[1]])
+```
+
+## Training calendar
+
+[`coros_schedule()`](https://mattyoreilly.github.io/rCoros/reference/coros_schedule.md)
+shows what’s planned for the next two weeks (or any window you specify):
+
+``` r
+
+sched <- coros_schedule(auth)
+
+sched |>
+  select(happen_day, name, sport_name, estimated_min, completed)
+#> # A tibble: 9 × 5
+#>   happen_day name              sport_name estimated_min completed
+#>   <date>     <chr>             <chr>               <dbl> <lgl>
+#> 1 2026-06-07 Long Run          Running              90   FALSE
+#> 2 2026-06-09 Recovery Run      Running              40   FALSE
+#> …
+```
+
+## Putting it together
+
+A common pattern is to join activities back to daily metrics to explore
+how recovery scores relate to performance:
+
+``` r
+
+combined <- runs |>
+  left_join(
+    metrics |> select(date, hrv, hrv_baseline, rhr, load_ratio),
+    by = "date"
+  )
+
+ggplot(combined, aes(hrv, avg_hr, colour = load_ratio)) +
+  geom_point(size = 2.5) +
+  geom_smooth(method = "lm", se = FALSE, colour = "grey40") +
+  scale_colour_viridis_c(name = "Load ratio") +
+  labs(
+    title  = "HRV vs. average run HR",
+    x      = "Overnight HRV (ms)",
+    y      = "Average HR (bpm)"
+  )
+```
