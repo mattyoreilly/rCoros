@@ -151,8 +151,7 @@ w <- coros_workouts(auth)
 w$workouts
 
 # Steps for a specific workout
-w$steps |>
-  filter(workout_id == w$workouts$id[[1]])
+w$steps |> filter(workout_id == w$workouts$id[[1]])
 ```
 
 ## Training calendar
@@ -162,8 +161,7 @@ w$steps |>
 ```{r schedule}
 sched <- coros_schedule(auth)
 
-sched |>
-  select(happen_day, name, sport_name, estimated_min, completed)
+sched
 #> # A tibble: 9 × 5
 #>   happen_day name              sport_name estimated_min completed
 #>   <date>     <chr>             <chr>               <dbl> <lgl>

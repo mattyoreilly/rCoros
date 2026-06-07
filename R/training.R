@@ -46,7 +46,7 @@ coros_workouts <- function(auth) {
         id           = as.character(w$id %||% NA),
         name         = w$name %||% NA_character_,
         sport_type   = w$sportType %||% NA_integer_,
-        sport_name   = workout_sport_names[[sport]] %||% paste("Sport", sport),
+        sport_name   = .sport_lookup(sport, workout_sport_names),
         duration_min = (w$estimatedTime %||% NA_real_) / 60,
         n_steps      = w$exerciseNum %||% NA_integer_
       )
@@ -139,7 +139,7 @@ coros_schedule <- function(
         happen_day      = as.Date(as.character(e$happenDay %||% NA), format = "%Y%m%d"),
         name            = e$name %||% NA_character_,
         sport_type      = e$sportType %||% NA_integer_,
-        sport_name      = COROS_SPORT_NAMES[[as.character(e$sportType %||% NA)]] %||% NA_character_,
+        sport_name      = .sport_lookup(as.character(e$sportType %||% NA), COROS_SPORT_NAMES),
         estimated_min   = (e$estimatedTime %||% NA_real_) / 60,
         completed       = isTRUE(e$completed)
       )

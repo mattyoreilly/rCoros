@@ -35,6 +35,18 @@
 }
 
 # ---------------------------------------------------------------------------
+# Safe sport-type lookup
+#
+# Uses single-bracket [ (not [[) so an unknown code returns NA rather than
+# throwing "subscript out of bounds" (the [[]] error on named vectors).
+# ---------------------------------------------------------------------------
+.sport_lookup <- function(code, table) {
+  if (is.na(code)) return(NA_character_)
+  nm <- unname(table[as.character(code)])
+  if (is.na(nm)) paste("Sport", code) else nm
+}
+
+# ---------------------------------------------------------------------------
 # Sport type lookup table
 # ---------------------------------------------------------------------------
 COROS_SPORT_NAMES <- c(

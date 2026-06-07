@@ -88,7 +88,7 @@ coros_activities <- function(
         activity_id    = as.character(x$labelId %||% NA),
         name           = x$name %||% x$remark %||% NA_character_,
         sport_type     = x$sportType %||% NA_integer_,
-        sport_name     = COROS_SPORT_NAMES[[sport]] %||% paste("Sport", sport),
+        sport_name     = .sport_lookup(sport, COROS_SPORT_NAMES),
         date           = as.Date(as.character(x$date %||% NA), format = "%Y%m%d"),
         start_time     = as.POSIXct(x$startTime %||% NA_real_, origin = "1970-01-01", tz = "UTC"),
         duration_s     = x$totalTime %||% NA_real_,

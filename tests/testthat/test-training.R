@@ -113,3 +113,24 @@ test_that("coros_schedule returns zero-row tibble when no entities", {
   expect_s3_class(result, "tbl_df")
   expect_equal(nrow(result), 0L)
 })
+
+test_that("coros_workouts handles NULL sportType without error", {
+  mock_resp <- httr2::response_json(
+    body = list(
+      result = "0000",
+      data   = list(
+        list(
+          id            = "w99",
+          name          = "Custom",
+          sportType     = NULL,   # API sometimes omits this
+          estimatedTime = 1800,
+          exerciseNum   = 1L,
+          exercises     = list()
+        )
+      )
+    )
+  )
+
+  result <- httr2::with_mocked_responses(list(mock_resp), coros_workouts(fake_auth))
+  expect_true(is.na(result$workouts$sport_name))
+})
