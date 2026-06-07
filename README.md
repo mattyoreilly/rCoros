@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/mattoreilly/rCoros/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mattoreilly/rCoros/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/mattyoreilly/rCoros/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mattyoreilly/rCoros/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/rCoros)](https://CRAN.R-project.org/package=rCoros)
 [![Lifecycle:
@@ -13,7 +13,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 rCoros provides a tidy interface to the [COROS Training
-Hub](https://trainhub.coros.com) API. Authenticate once, then pull
+Hub](https://coros.com/traininghub) API. Authenticate once, then pull
 activities, daily wellness metrics, HRV, workout programmes, and
 training calendars — all as tibbles ready for dplyr and ggplot2.
 
