@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 # rCoros <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/mattoreilly/rCoros/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mattoreilly/rCoros/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/mattyoreilly/rCoros/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mattyoreilly/rCoros/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/rCoros)](https://CRAN.R-project.org/package=rCoros)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->

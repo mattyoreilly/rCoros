@@ -33,7 +33,7 @@ Suggests:
     testthat (>= 3.0.0),
     withr (>= 2.5.0)
 VignetteBuilder: knitr
-URL: https://github.com/mattoreilly/rCoros, https://mattyoreilly.github.io/rCoros/
-BugReports: https://github.com/mattoreilly/rCoros/issues
+URL: https://github.com/mattyoreilly/rCoros, https://mattyoreilly.github.io/rCoros/
+BugReports: https://github.com/mattyoreilly/rCoros/issues
 Config/roxygen2/version: 8.0.0
 Config/testthat/edition: 3
