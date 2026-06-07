@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-rCoros gives you tidy access to your [COROS Training Hub](https://trainhub.coros.com) data from R. Every function returns a tibble, so you can pipe results straight into dplyr and ggplot2.
+rCoros gives you tidy access to your [COROS Training Hub](https://coros.com/traininghub) data from R. Every function returns a tibble, so you can pipe results straight into dplyr and ggplot2.
 
 ## Setup
 
