@@ -1,8 +1,8 @@
 # Getting started with rCoros
 
 rCoros gives you tidy access to your [COROS Training
-Hub](https://trainhub.coros.com) data from R. Every function returns a
-tibble, so you can pipe results straight into dplyr and ggplot2.
+Hub](https://coros.com/traininghub) data from R. Every function returns
+a tibble, so you can pipe results straight into dplyr and ggplot2.
 
 ## Setup
 
