@@ -197,8 +197,7 @@ two linked tibbles — the workout header and its individual steps:</p>
 <span><span class="va">w</span><span class="op">$</span><span class="va">workouts</span></span>
 <span></span>
 <span><span class="co"># Steps for a specific workout</span></span>
-<span><span class="va">w</span><span class="op">$</span><span class="va">steps</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">workout_id</span> <span class="op">==</span> <span class="va">w</span><span class="op">$</span><span class="va">workouts</span><span class="op">$</span><span class="va">id</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">w</span><span class="op">$</span><span class="va">steps</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">workout_id</span> <span class="op">==</span> <span class="va">w</span><span class="op">$</span><span class="va">workouts</span><span class="op">$</span><span class="va">id</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="training-calendar">Training calendar<a class="anchor" aria-label="anchor" href="#training-calendar"></a>
@@ -208,8 +207,7 @@ weeks (or any window you specify):</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sched</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coros_schedule.html">coros_schedule</a></span><span class="op">(</span><span class="va">auth</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sched</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">happen_day</span>, <span class="va">name</span>, <span class="va">sport_name</span>, <span class="va">estimated_min</span>, <span class="va">completed</span><span class="op">)</span></span>
+<span><span class="va">sched</span></span>
 <span><span class="co">#&gt; # A tibble: 9 × 5</span></span>
 <span><span class="co">#&gt;   happen_day name              sport_name estimated_min completed</span></span>
 <span><span class="co">#&gt;   &lt;date&gt;     &lt;chr&gt;             &lt;chr&gt;               &lt;dbl&gt; &lt;lgl&gt;</span></span>
