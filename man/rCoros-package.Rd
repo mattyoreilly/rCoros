@@ -55,9 +55,9 @@ Never hard-code passwords in scripts.  Set \code{COROS_EMAIL} and
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/mattoreilly/rCoros}
+  \item \url{https://github.com/mattyoreilly/rCoros}
   \item \url{https://mattyoreilly.github.io/rCoros/}
-  \item Report bugs at \url{https://github.com/mattoreilly/rCoros/issues}
+  \item Report bugs at \url{https://github.com/mattyoreilly/rCoros/issues}
 }
 
 }
