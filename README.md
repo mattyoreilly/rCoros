@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/rCoros)](https://CRAN.R-project.org/package=rCoros)
 [![R-CMD-check](https://github.com/mattyoreilly/rCoros/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mattyoreilly/rCoros/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -17,7 +19,11 @@ training calendars — all as tibbles ready for dplyr and ggplot2.
 
 ## Installation
 
-Install the development version from GitHub:
+``` r
+install.packages("rCoros")
+```
+
+Or install the development version from GitHub:
 
 ``` r
 # install.packages("pak")

@@ -1,5 +1,5 @@
 Package: rCoros
-Title: Access COROS Training Hub Fitness Data in R
+Title: Access COROS Training Hub Fitness Data
 Version: 0.1.0
 Date: 2026-06-07
 Authors@R:
@@ -9,12 +9,13 @@ Authors@R:
         email   = "fermoymatt@gmail.com",
         role    = c("aut", "cre")
     )
-Description:
-    Provides a tidy interface to the COROS Training Hub API.
-    Retrieve activities, daily wellness metrics (HRV, resting heart rate,
-    VO2max, training load), workout programmes, and training calendars.
-    All results are returned as tibbles ready for analysis with dplyr
-    and ggplot2.  Supports both US and EU regional endpoints.
+Description: Provides a tidy interface to the 'COROS' Training Hub API
+    (<https://coros.com/traininghub>), the web platform that accompanies 'COROS'
+    GPS sports watches. Retrieves activities, daily wellness metrics
+    (heart rate variability, resting heart rate, VO2 max and training
+    load), workout programmes and training calendars. All results are
+    returned as tibbles, ready for analysis with 'dplyr' and 'ggplot2'.
+    Both the US and EU regional endpoints are supported.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -27,9 +28,13 @@ Imports:
     purrr (>= 1.0.0),
     tibble (>= 3.2.0)
 Suggests:
+    bslib (>= 0.6.0),
+    DT (>= 0.28),
     ggplot2 (>= 3.4.0),
     knitr (>= 1.40),
+    plotly (>= 4.10.0),
     rmarkdown (>= 2.20),
+    shiny (>= 1.8.0),
     testthat (>= 3.0.0),
     withr (>= 2.5.0)
 VignetteBuilder: knitr

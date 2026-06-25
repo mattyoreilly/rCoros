@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 # rCoros <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/rCoros)](https://CRAN.R-project.org/package=rCoros)
 [![R-CMD-check](https://github.com/mattyoreilly/rCoros/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mattyoreilly/rCoros/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
@@ -25,7 +26,11 @@ rCoros provides a tidy interface to the [COROS Training Hub](https://coros.com/t
 
 ## Installation
 
-Install the development version from GitHub:
+```{r cran-install}
+install.packages("rCoros")
+```
+
+Or install the development version from GitHub:
 
 ```{r dev-install}
 # install.packages("pak")
