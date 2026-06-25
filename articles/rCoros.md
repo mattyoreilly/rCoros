@@ -4,6 +4,13 @@ rCoros gives you tidy access to your [COROS Training
 Hub](https://coros.com/traininghub) data from R. Every function returns
 a tibble, so you can pipe results straight into dplyr and ggplot2.
 
+## Installation
+
+``` r
+
+install.packages("rCoros")
+```
+
 ## Setup
 
 Store your credentials in `~/.Renviron` so they are never hard-coded in

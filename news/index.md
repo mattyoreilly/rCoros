@@ -2,6 +2,8 @@
 
 ## rCoros 0.1.0
 
+CRAN release: 2026-06-24
+
 - Initial release.
 - [`coros_login()`](https://mattyoreilly.github.io/rCoros/reference/coros_login.md)
   authenticates with the COROS Training Hub API (US and EU regions).

@@ -7,7 +7,12 @@ training calendars — all as tibbles ready for dplyr and ggplot2.
 
 ## Installation
 
-Install the development version from GitHub:
+``` r
+
+install.packages("rCoros")
+```
+
+Or install the development version from GitHub:
 
 ``` r
 

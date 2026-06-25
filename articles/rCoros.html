@@ -68,6 +68,12 @@
 Every function returns a tibble, so you can pipe results straight into
 dplyr and ggplot2.</p>
 <div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rCoros"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
 <p>Store your credentials in <code>~/.Renviron</code> so they are never
@@ -75,7 +81,7 @@ hard-coded in a script:</p>
 <pre><code><span><span class="va">COROS_EMAIL</span><span class="op">=</span><span class="va">you</span><span class="op">@</span><span class="va">example.com</span></span>
 <span><span class="va">COROS_PASSWORD</span><span class="op">=</span><span class="va">secret</span></span></code></pre>
 <p>Then restart R and authenticate:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mattyoreilly/rCoros" class="external-link">rCoros</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">auth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coros_login.html">coros_login</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -94,7 +100,7 @@ it once per session and pass it to every subsequent call.</p>
 <p><code><a href="../reference/coros_activities.html">coros_activities()</a></code> returns one row per activity. By
 default it fetches the last 30 days and auto-paginates until all
 matching activities are returned:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">acts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coros_activities.html">coros_activities</a></span><span class="op">(</span><span class="va">auth</span><span class="op">)</span></span>
@@ -107,7 +113,7 @@ matching activities are returned:</p>
 <span><span class="co">#&gt; …</span></span></code></pre></div>
 <p>Filter to runs only, then look at distance and training load over
 time:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">runs</span> <span class="op">&lt;-</span> <span class="va">acts</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">sport_type</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100L</span>, <span class="fl">102L</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span></span>
@@ -122,7 +128,7 @@ time:</p>
 </h3>
 <p>Drill into a single activity to get lap splits and heart-rate
 zones:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">detail</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coros_activity_detail.html">coros_activity_detail</a></span><span class="op">(</span></span>
 <span>  <span class="va">auth</span>,</span>
 <span>  activity_id <span class="op">=</span> <span class="va">acts</span><span class="op">$</span><span class="va">activity_id</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
@@ -147,7 +153,7 @@ zones:</p>
 </h2>
 <p><code><a href="../reference/coros_daily_metrics.html">coros_daily_metrics()</a></code> pulls per-day HRV, resting heart
 rate, VO2max, training load, and more for up to 90 days at a time:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coros_daily_metrics.html">coros_daily_metrics</a></span><span class="op">(</span><span class="va">auth</span>, start_day <span class="op">=</span> <span class="st">"20260101"</span>, end_day <span class="op">=</span> <span class="st">"20260607"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># HRV trend with baseline</span></span>
@@ -159,7 +165,7 @@ rate, VO2max, training load, and more for up to 90 days at a time:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Overnight HRV vs. baseline"</span>, x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"HRV (ms)"</span><span class="op">)</span></span></code></pre></div>
 <p>For a quick view of just the last 7 days, <code><a href="../reference/coros_hrv.html">coros_hrv()</a></code>
 hits a lighter dashboard endpoint:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/coros_hrv.html">coros_hrv</a></span><span class="op">(</span><span class="va">auth</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 7 × 4</span></span>
 <span><span class="co">#&gt;   date         hrv baseline hrv_sd</span></span>
@@ -174,7 +180,7 @@ hits a lighter dashboard endpoint:</p>
 <p>Training load and its acute:chronic ratio are in
 <code><a href="../reference/coros_daily_metrics.html">coros_daily_metrics()</a></code>. A ratio above ~1.5 is a useful proxy
 for injury risk:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">metrics</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">load_ratio</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">load_ratio</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -190,7 +196,7 @@ for injury risk:</p>
 </h2>
 <p><code><a href="../reference/coros_workouts.html">coros_workouts()</a></code> returns your saved workout library as
 two linked tibbles — the workout header and its individual steps:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coros_workouts.html">coros_workouts</a></span><span class="op">(</span><span class="va">auth</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># All workouts</span></span>
@@ -204,7 +210,7 @@ two linked tibbles — the workout header and its individual steps:</p>
 </h2>
 <p><code><a href="../reference/coros_schedule.html">coros_schedule()</a></code> shows what’s planned for the next two
 weeks (or any window you specify):</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sched</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coros_schedule.html">coros_schedule</a></span><span class="op">(</span><span class="va">auth</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">sched</span></span>
@@ -220,7 +226,7 @@ weeks (or any window you specify):</p>
 </h2>
 <p>A common pattern is to join activities back to daily metrics to
 explore how recovery scores relate to performance:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="va">runs</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
 <span>    <span class="va">metrics</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">hrv</span>, <span class="va">hrv_baseline</span>, <span class="va">rhr</span>, <span class="va">load_ratio</span><span class="op">)</span>,</span>
